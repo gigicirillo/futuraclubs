@@ -18,6 +18,18 @@
 .free-lens:before{z-index:1}.free-lens:after{z-index:2}
 .balance-control{width:540px}.mode-labels{gap:12px}.mode-labels button{white-space:nowrap}
 @media(max-width:600px){.balance-control{width:100%;padding-left:16px;padding-right:16px}.mode-labels{gap:6px}.mode-labels button{font-size:9px;letter-spacing:.7px}.mode-labels small{margin-right:3px}}
+
+/* Keep the complete hero and its controls in the initial viewport. */
+:root{--header-height:88px}
+header{height:var(--header-height)}
+.hero{height:calc(100svh - var(--header-height));min-height:0;max-height:none}
+.scene{background-position:50% 100%}
+.hero-bottom{bottom:20px;z-index:6}
+.copy{padding-top:clamp(22px,4vh,48px)}
+@media(max-width:900px){:root{--header-height:78px}}
+@media(max-width:600px){:root{--header-height:76px}.scene{background-position:51% 100%}.hero-bottom{bottom:16px}.copy{padding-top:24px}.copy h1{font-size:clamp(36px,9.5vw,54px)}.copy p:not(.eyebrow){margin-bottom:16px}.copy .eyebrow{margin-bottom:16px}}
+@media(max-height:740px) and (min-width:601px){h1{font-size:clamp(44px,5vw,68px)}.copy .eyebrow{margin-bottom:14px}.copy h1{margin-bottom:16px}.copy p:not(.eyebrow){margin-bottom:18px}}
+@media(max-height:600px){.copy{padding-top:16px}.copy .eyebrow{margin-bottom:10px}h1,.copy h1{font-size:clamp(30px,6vw,48px);margin-bottom:12px}.copy p:not(.eyebrow){font-size:14px;margin-bottom:12px}.copy .cta{padding:11px 18px}.hero-bottom{bottom:10px}}
 </style></head>
 <body>
 <header><a class="brand" href="#" aria-label="Futura Clubs, homepage">futura<span>CLUBS</span></a><nav aria-label="Navigazione principale"><a href="#esperienze">Esperienze</a><a href="#club">I club</a><a href="#metodo">Il metodo</a></nav><a class="cta header-cta" href="#esperienze">Trova il tuo percorso <span>↗</span></a></header>
@@ -44,7 +56,7 @@ function renderLens(){if(!sourceImage.naturalWidth||lensX===null)return;
  const w=hero.clientWidth,h=hero.clientHeight,mobile=matchMedia('(max-width:600px)').matches;
  const scale=mobile?h*.75/sourceImage.naturalHeight:Math.max(w/sourceImage.naturalWidth,h/sourceImage.naturalHeight);
  const iw=sourceImage.naturalWidth*scale,ih=sourceImage.naturalHeight*scale;
- const ox=(w-iw)*(mobile?.51:.5),oy=(h-ih)*(mobile?1:.58),zoom=1.18;
+ const ox=(w-iw)*(mobile?.51:.5),oy=(h-ih),zoom=1.18;
  lensImage.style.backgroundSize=(iw*zoom)+'px '+(ih*zoom)+'px';
  lensImage.style.backgroundPosition=(lens.clientWidth/2+(ox-lensX)*zoom)+'px '+(lens.clientHeight/2+(oy-lensY)*zoom)+'px';
 }
