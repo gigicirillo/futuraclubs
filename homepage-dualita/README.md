@@ -8,3 +8,5 @@ Anteprima autonoma della nuova homepage. Aprire `index.html` in un browser oppur
 - Font caricati da Google Fonts; il resto della pagina non richiede dipendenze.
 
 Il tour virtuale nella homepage principale della repository rimane separato.
+
+- Lente glass compatta (170 px desktop, 120 px mobile), trascinabile su entrambi gli assi entro la hero. Supporta mouse, touch e frecce della tastiera (Shift per spostamenti maggiori).
