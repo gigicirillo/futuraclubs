@@ -9,6 +9,4 @@ Anteprima autonoma della nuova homepage. Aprire `index.html` in un browser oppur
 
 Il tour virtuale nella homepage principale della repository rimane separato.
 
-- Lente glass compatta (210 px desktop, 150 px mobile), trascinabile su entrambi gli assi entro la hero. Supporta mouse, touch e frecce della tastiera (Shift per spostamenti maggiori).
 
-Hero a tre ambienti: Energia, Salute (Pilates Reformer), Equilibrio. Lente con ingrandimento 1,18× e contrasto leggermente aumentato, senza sfocatura; sfondo e lente condividono lo stesso ritaglio responsive.
