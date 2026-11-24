@@ -125,7 +125,22 @@ header{height:var(--header-height)}
   .club-switch button{flex:1 1 0;min-width:0;padding:8px 4px;font-size:12px}
   .club-switch #tab-overview{flex-grow:1.2}
 }
-html{scroll-padding-top:var(--header-height)}
+html{
+  scroll-padding-top:var(--header-height);
+  scroll-snap-type:y mandatory;
+}
+main > section{
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
+main > section:not(.hero){
+  min-height:calc(100vh - var(--header-height));
+  min-height:calc(100dvh - var(--header-height));
+}
+body > footer{
+  scroll-snap-align:end;
+  scroll-snap-stop:always;
+}
 .center-screen{
   display:flex;
   flex-direction:column;
@@ -322,7 +337,7 @@ clubTabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectClub(tab))
 
 const newsBox=document.querySelector('.hero-news'),newsSlides=[...document.querySelectorAll('.news-slide')],newsDots=[...document.querySelectorAll('[data-news]')],newsPrev=document.getElementById('news-prev'),newsNext=document.getElementById('news-next'),newsPause=document.getElementById('news-pause');
 const newsMotion=matchMedia('(prefers-reduced-motion: reduce)'),NEWS_INTERVAL=6000;
-let newsIndex=0,newsWheelUntil=0,newsTimer=null,newsBusy=false,newsPaused=newsMotion.matches,newsHover=false,newsFocused=false,newsVisible=true;
+let newsIndex=0,newsTimer=null,newsBusy=false,newsPaused=newsMotion.matches,newsHover=false,newsFocused=false,newsVisible=true;
 function scheduleNews(){clearTimeout(newsTimer);if(!newsPaused&&!newsHover&&!newsFocused&&!document.hidden&&newsVisible)newsTimer=setTimeout(()=>showNews(newsIndex+1,1),NEWS_INTERVAL)}
 async function showNews(index,direction=1){if(newsBusy)return;index=(index+newsSlides.length)%newsSlides.length;if(index===newsIndex)return;clearTimeout(newsTimer);newsBusy=true;const old=newsSlides[newsIndex],next=newsSlides[index];next.hidden=false;next.inert=true;old.inert=true;old.setAttribute('aria-hidden','true');next.setAttribute('aria-hidden','true');
  if(!newsMotion.matches){const timing={duration:720,easing:'cubic-bezier(.22,.61,.36,1)'};await Promise.allSettled([old.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY('+direction*105+'%)',opacity:0}],timing).finished,next.animate([{transform:'translateY('+(-direction*105)+'%)',opacity:0},{transform:'translateY(0)',opacity:1}],timing).finished])}
@@ -333,10 +348,8 @@ function updatePause(){newsPause.setAttribute('aria-pressed',String(newsPaused))
 newsPause.addEventListener('click',()=>{newsPaused=!newsPaused;updatePause()});newsBox.addEventListener('mouseenter',()=>{newsHover=true;scheduleNews()});newsBox.addEventListener('mouseleave',()=>{newsHover=false;scheduleNews()});newsBox.addEventListener('focusin',()=>{newsFocused=true;scheduleNews()});newsBox.addEventListener('focusout',()=>{setTimeout(()=>{newsFocused=newsBox.contains(document.activeElement);scheduleNews()},0)});document.addEventListener('visibilitychange',scheduleNews);
 newsMotion.addEventListener('change',()=>{if(newsMotion.matches){newsPaused=true;updatePause()}});
 new IntersectionObserver(entries=>{newsVisible=entries[0].isIntersecting;scheduleNews()}).observe(newsBox);
-newsBox.addEventListener('wheel',event=>{if(Math.abs(event.deltaY)<8||Math.abs(event.deltaX)>Math.abs(event.deltaY))return;event.preventDefault();if(Date.now()<newsWheelUntil)return;const direction=Math.sign(event.deltaY);showNews(newsIndex+direction,direction);newsWheelUntil=Date.now()+850},{passive:false});
 newsBox.addEventListener('keydown',event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const direction=event.key==='ArrowDown'?1:-1;showNews(newsIndex+direction,direction)}});updatePause();
 
-document.querySelector('.hero-scroll').addEventListener('click',event=>{event.preventDefault();const target=document.getElementById('scegli-centro');const header=document.querySelector('header');window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top-header.offsetHeight,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})});
 
 const serviceTracks=[...document.querySelectorAll('.service-grid')];
 function refreshServiceArrows(){serviceTracks.forEach(track=>{if(!track.clientWidth)return;document.querySelectorAll('[data-track="'+track.id+'"]').forEach(button=>{button.disabled=Number(button.dataset.step)<0?track.scrollLeft<=2:track.scrollLeft+track.clientWidth>=track.scrollWidth-2})})}
