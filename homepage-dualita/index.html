@@ -390,10 +390,37 @@ body > footer{
   71%,79%{transform:translateY(calc(-5 * var(--brand-row)))}
   89%,100%{transform:translateY(calc(-6 * var(--brand-row)))}
 }
+.hero-brand-glass{
+  --glass-mark:url('assets/futuraclubs-pittogramma.svg');
+  position:absolute;
+  top:14%;
+  left:52%;
+  z-index:1;
+  width:clamp(108px,12vw,210px);
+  aspect-ratio:499/502;
+  pointer-events:none;
+  background:linear-gradient(145deg,#ffffffc4 2%,#ffffff6b 37%,#ffffff26 72%,#ffffff85);
+  -webkit-backdrop-filter:blur(6px) saturate(115%);
+  backdrop-filter:blur(6px) saturate(115%);
+  -webkit-mask:var(--glass-mark) center/contain no-repeat;
+  mask:var(--glass-mark) center/contain no-repeat;
+  transform:translateX(-50%) rotate(-4deg);
+  animation:hero-glass-drift 9s ease-in-out infinite alternate;
+}
+@keyframes hero-glass-drift{
+  from{transform:translate(-50%,0) rotate(-4deg)}
+  to{transform:translate(-48%,-11px) rotate(2deg)}
+}
+@media(max-width:1000px){
+  .hero-brand-glass{top:53%;left:26%;width:clamp(95px,15vw,140px)}
+}
+@media(max-width:600px){
+  .hero-brand-glass{top:201px;left:84%;width:clamp(62px,17vw,94px)}
+}
 </style></head>
 <body>
 <header><a class="brand" href="#" aria-label="Futura Clubs, homepage"><img class="brand-mark" src="assets/futuraclubs-pittogramma.svg" alt="" width="40" height="40"><span class="brand-wordmark">futura<span class="brand-roller" aria-hidden="true"><span class="brand-roller-track"><span>benessere</span><span>salute</span><span>fitness</span><span>nuoto</span><span>bellezza</span><span class="brand-clubs">CLUBS</span></span></span></span></a><nav aria-label="Navigazione principale"><a href="#scegli-centro">Esperienze</a><a href="#club">I club</a><a href="#metodo">Il metodo</a></nav><a class="cta header-cta" href="#scegli-centro">Trova il tuo percorso <span>↗</span></a></header>
-<main><section class="hero" aria-label="Energia ed equilibrio"><div class="scene" role="img" aria-label="Palestra, Pilates Reformer e piscina Futura in una composizione fotografica rielaborata con AI"></div><div class="copy"><p class="eyebrow reveal">Tre anime. Un solo benessere.</p><h1 class="reveal"><span>La tua energia.</span><span>Il tuo equilibrio.</span></h1><p class="reveal">Allenamento, acqua e benessere.<br>Il tuo percorso comincia da te.</p></div>
+<main><section class="hero" aria-label="Energia ed equilibrio"><div class="scene" role="img" aria-label="Palestra, Pilates Reformer e piscina Futura in una composizione fotografica rielaborata con AI"></div><div class="hero-brand-glass" aria-hidden="true"></div><div class="copy"><p class="eyebrow reveal">Tre anime. Un solo benessere.</p><h1 class="reveal"><span>La tua energia.</span><span>Il tuo equilibrio.</span></h1><p class="reveal">Allenamento, acqua e benessere.<br>Il tuo percorso comincia da te.</p></div>
 
 <a class="hero-scroll" href="#scegli-centro" aria-label="Scorri per scegliere il tuo centro"><span class="scroll-mouse" aria-hidden="true"><span></span></span><span class="scroll-chevron" aria-hidden="true">⌄</span></a>
 <aside class="hero-news" aria-label="News ed eventi in evidenza" aria-roledescription="carosello"><div class="news-top"><span>IN EVIDENZA</span><span id="news-count">01 / 03</span><button type="button" id="news-pause" aria-label="Metti in pausa le news" aria-pressed="false">Ⅱ</button></div><div class="news-layout"><div class="news-dots" aria-label="Seleziona notizia"><button type="button" data-news="0" aria-label="Mostra Step Coreografico" aria-current="true"><span></span></button><button type="button" data-news="1" aria-label="Mostra Deep Experience" aria-current="false"><span></span></button><button type="button" data-news="2" aria-label="Mostra Functional Performance" aria-current="false"><span></span></button></div><div class="news-window" aria-live="polite" aria-atomic="true"><article class="news-slide"><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/ucceliini-special.png" alt="Anteprima Step Coreografico" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">EVENTO · 26 NOVEMBRE</p><h2>Step Coreografico</h2><p class="news-meta">Città della Pieve · ore 18:30</p><p class="news-description">Una special class con Alessandro Uccellini. Aperta a tutti, su prenotazione.</p><a href="https://www.futuraclubs.it/special-class-di-step-coreografico/" target="_blank" rel="noopener">Scopri di più ↗</a></article><article class="news-slide" hidden><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/deep.png" alt="Anteprima Deep Experience" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">EVENTO · 26 NOVEMBRE</p><h2>Deep Experience</h2><p class="news-meta">Striding 17:45 · Cycling 19:15</p><p class="news-description">Una lezione Power, seguita da stretching profondo. Scopri come partecipare.</p><a href="https://www.futuraclubs.it/deep-experience-cycling-e-striding/" target="_blank" rel="noopener">Scopri di più ↗</a></article><article class="news-slide" hidden><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/FUCNTI.png" alt="Anteprima Functional Performance" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">NOVITÀ · SMALL GROUP</p><h2>Functional Performance</h2><p class="news-meta">Fabro e Città della Pieve</p><p class="news-description">Forza, resistenza e preparazione atletica: scopri il nuovo percorso.</p><a href="https://www.futuraclubs.it/functional-performance/" target="_blank" rel="noopener">Scopri di più ↗</a></article></div><div class="news-arrows"><button type="button" id="news-prev" aria-label="Notizia precedente" disabled>↑</button><button type="button" id="news-next" aria-label="Notizia successiva">↓</button></div></div></aside></section>
