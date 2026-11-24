@@ -129,6 +129,7 @@ html{
   scroll-padding-top:var(--header-height);
   scroll-snap-type:y mandatory;
 }
+.section-scroll-ready{scroll-snap-type:none}
 main > section{
   scroll-snap-align:start;
   scroll-snap-stop:always;
@@ -199,7 +200,7 @@ body > footer{
 .center-choice-hint{margin:0;color:#4a5b50;font-size:14px;line-height:1.45}
 .club-switch #tab-overview{gap:5px}
 .choice-arrow{flex:none;font-size:12px;line-height:1}
-#tab-overview[aria-selected="true"] .choice-label{animation:center-choice-pulse 1.6s ease-in-out 3}
+.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-label{animation:center-choice-pulse 2.45s ease-in-out 2}
 @keyframes center-choice-pulse{
   50%{color:#c2ded1;text-shadow:0 0 10px #e5fcf276}
 }
@@ -386,4 +387,103 @@ healthControls.hidden=false;
 healthTrack.addEventListener('scroll',refreshHealthArrows,{passive:true});
 new ResizeObserver(refreshHealthArrows).observe(healthTrack);
 refreshHealthArrows();
+
+const clubStrip=document.querySelector('.club-strip');
+new IntersectionObserver(([entry])=>{
+  clubStrip.classList.toggle('is-visible',entry.isIntersecting);
+},{threshold:.35}).observe(clubStrip);
+
+// A section taller than the viewport has a range of valid scroll positions.
+const pageSections=[...document.querySelectorAll('main > section')];
+const pageHeader=document.querySelector('header');
+const pageRoot=document.documentElement;
+let alignTimer=0, alignFrame=0, touchScrolling=false, pointerHeld=false, manualScroll=false;
+
+function stopPageAlignment(){
+  clearTimeout(alignTimer);
+  cancelAnimationFrame(alignFrame);
+  alignFrame=0;
+}
+
+function queuePageAlignment(){
+  clearTimeout(alignTimer);
+  if(manualScroll&&!touchScrolling&&!pointerHeld&&!alignFrame){
+    alignTimer=setTimeout(alignToSection,160);
+  }
+}
+
+function alignToSection(){
+  manualScroll=false;
+  const start=window.scrollY;
+  const headerHeight=pageHeader.offsetHeight;
+  const viewportHeight=pageRoot.clientHeight;
+  const pageEnd=pageRoot.scrollHeight-viewportHeight;
+  let target=pageEnd;
+  for(const section of pageSections){
+    const bounds=section.getBoundingClientRect();
+    const top=Math.max(0,Math.min(pageEnd,start+bounds.top-headerHeight));
+    const bottom=Math.max(top,Math.min(pageEnd,start+bounds.bottom-viewportHeight));
+    const candidate=Math.max(top,Math.min(bottom,start));
+    if(Math.abs(candidate-start)<Math.abs(target-start))target=candidate;
+  }
+  const distance=target-start;
+  if(Math.abs(distance)<2)return;
+  if(newsMotion.matches){
+    window.scrollTo({top:target,behavior:'instant'});
+    return;
+  }
+  const duration=Math.min(550,Math.max(340,Math.abs(distance)*1.15));
+  const begin=performance.now();
+  function step(now){
+    const progress=Math.min(1,(now-begin)/duration);
+    const eased=1-Math.pow(1-progress,3);
+    window.scrollTo({top:start+distance*eased,behavior:'instant'});
+    alignFrame=progress<1?requestAnimationFrame(step):0;
+  }
+  alignFrame=requestAnimationFrame(step);
+}
+
+function startManualScroll(){
+  stopPageAlignment();
+  manualScroll=true;
+}
+window.addEventListener('wheel',event=>{
+  if(!event.ctrlKey&&Math.abs(event.deltaY)>Math.abs(event.deltaX)){
+    startManualScroll();
+    queuePageAlignment();
+  }
+},{passive:true});
+window.addEventListener('touchstart',()=>{
+  touchScrolling=true;
+  startManualScroll();
+},{passive:true});
+function finishTouchScroll(){
+  touchScrolling=false;
+  queuePageAlignment();
+}
+window.addEventListener('touchend',finishTouchScroll,{passive:true});
+window.addEventListener('touchcancel',finishTouchScroll,{passive:true});
+window.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse'&&event.clientX>=pageRoot.clientWidth){
+    pointerHeld=true;
+    startManualScroll();
+  }
+});
+window.addEventListener('pointerup',()=>{
+  pointerHeld=false;
+  queuePageAlignment();
+});
+window.addEventListener('keydown',event=>{
+  if(event.target.closest('button,input,textarea,select,[contenteditable],.health-track,.service-grid')||event.altKey||event.ctrlKey||event.metaKey)return;
+  if(['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key)){
+    startManualScroll();
+    queuePageAlignment();
+  }
+});
+window.addEventListener('hashchange',()=>{
+  stopPageAlignment();
+  manualScroll=false;
+});
+window.addEventListener('scroll',queuePageAlignment,{passive:true});
+pageRoot.classList.add('section-scroll-ready');
 </script></body></html>
