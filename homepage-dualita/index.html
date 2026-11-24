@@ -200,9 +200,31 @@ body > footer{
 .center-choice-hint{margin:0;color:#4a5b50;font-size:14px;line-height:1.45}
 .club-switch #tab-overview{gap:5px}
 .choice-arrow{flex:none;font-size:12px;line-height:1}
-.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-label{animation:center-choice-pulse 2.45s ease-in-out 2}
-@keyframes center-choice-pulse{
-  50%{color:#c2ded1;text-shadow:0 0 10px #e5fcf276}
+.club-switch:has(#tab-overview[aria-selected="true"]) > button[data-club]:not(#tab-overview){
+  background:#ffffff85;
+  border-color:#81998a;
+  color:#28483a;
+  font-weight:700;
+}
+.club-strip.is-visible .club-switch:has(#tab-overview[aria-selected="true"]) > button[data-club]:not(#tab-overview){
+  animation:center-option-glow 2.4s ease-in-out 2;
+}
+.club-strip.is-visible .club-switch:has(#tab-overview[aria-selected="true"]) > #tab-pieve{
+  animation-delay:1.2s;
+}
+.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-arrow{
+  animation:center-arrow-nudge 2.4s ease-in-out 2;
+}
+#tab-overview .choice-arrow:first-child{--arrow-shift:-5px}
+#tab-overview .choice-arrow:last-child{--arrow-shift:5px}
+.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-arrow:last-child{animation-delay:1.2s}
+@keyframes center-option-glow{
+  0%,50%,100%{background:#ffffff85;border-color:#81998a;box-shadow:none}
+  24%{background:#d5edd7;border-color:#578266;box-shadow:0 0 9px #4f8a6755}
+}
+@keyframes center-arrow-nudge{
+  0%,50%,100%{transform:translateX(0)}
+  24%{transform:translateX(var(--arrow-shift));color:#d3ffc7}
 }
 @media(max-width:600px){
   .club-switch #tab-overview{gap:3px;flex-grow:1.35}
@@ -259,7 +281,7 @@ body > footer{
 <a class="hero-scroll" href="#scegli-centro" aria-label="Scorri per scegliere il tuo centro"><span class="scroll-mouse" aria-hidden="true"><span></span></span><span class="scroll-chevron" aria-hidden="true">⌄</span></a>
 <aside class="hero-news" aria-label="News ed eventi in evidenza" aria-roledescription="carosello"><div class="news-top"><span>IN EVIDENZA</span><span id="news-count">01 / 03</span><button type="button" id="news-pause" aria-label="Metti in pausa le news" aria-pressed="false">Ⅱ</button></div><div class="news-layout"><div class="news-dots" aria-label="Seleziona notizia"><button type="button" data-news="0" aria-label="Mostra Step Coreografico" aria-current="true"><span></span></button><button type="button" data-news="1" aria-label="Mostra Deep Experience" aria-current="false"><span></span></button><button type="button" data-news="2" aria-label="Mostra Functional Performance" aria-current="false"><span></span></button></div><div class="news-window" aria-live="polite" aria-atomic="true"><article class="news-slide"><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/ucceliini-special.png" alt="Anteprima Step Coreografico" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">EVENTO · 26 NOVEMBRE</p><h2>Step Coreografico</h2><p class="news-meta">Città della Pieve · ore 18:30</p><p class="news-description">Una special class con Alessandro Uccellini. Aperta a tutti, su prenotazione.</p><a href="https://www.futuraclubs.it/special-class-di-step-coreografico/" target="_blank" rel="noopener">Scopri di più ↗</a></article><article class="news-slide" hidden><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/deep.png" alt="Anteprima Deep Experience" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">EVENTO · 26 NOVEMBRE</p><h2>Deep Experience</h2><p class="news-meta">Striding 17:45 · Cycling 19:15</p><p class="news-description">Una lezione Power, seguita da stretching profondo. Scopri come partecipare.</p><a href="https://www.futuraclubs.it/deep-experience-cycling-e-striding/" target="_blank" rel="noopener">Scopri di più ↗</a></article><article class="news-slide" hidden><img class="news-preview" src="https://www.futuraclubs.it/wp-content/uploads/FUCNTI.png" alt="Anteprima Functional Performance" width="72" height="72" loading="lazy" decoding="async"><p class="news-kicker">NOVITÀ · SMALL GROUP</p><h2>Functional Performance</h2><p class="news-meta">Fabro e Città della Pieve</p><p class="news-description">Forza, resistenza e preparazione atletica: scopri il nuovo percorso.</p><a href="https://www.futuraclubs.it/functional-performance/" target="_blank" rel="noopener">Scopri di più ↗</a></article></div><div class="news-arrows"><button type="button" id="news-prev" aria-label="Notizia precedente" disabled>↑</button><button type="button" id="news-next" aria-label="Notizia successiva">↓</button></div></div></aside></section>
 <section id="scegli-centro" class="center-screen" aria-labelledby="center-title">
-<div class="club-strip"><h2 id="center-title">Due club. Il tuo spazio.</h2><div class="club-switch" role="tablist" aria-label="Centro Futura" aria-describedby="center-choice-hint"><button type="button" role="tab" id="tab-fabro" aria-controls="services-fabro" aria-selected="false" tabindex="-1" data-club="fabro">Fabro</button><button type="button" role="tab" id="tab-overview" aria-controls="services-overview" aria-selected="true" tabindex="0" data-club="overview"><span class="choice-arrow" aria-hidden="true">←</span><span class="choice-label">Scegli il tuo centro</span><span class="choice-arrow" aria-hidden="true">→</span></button><button type="button" role="tab" id="tab-pieve" aria-controls="services-pieve" aria-selected="false" tabindex="-1" data-club="pieve">Città della Pieve</button></div><p class="center-choice-hint" id="center-choice-hint" aria-live="polite">Seleziona Fabro o Città della Pieve per vedere qui sotto i servizi del centro scelto.</p></div>
+<div class="club-strip"><h2 id="center-title">Due club. Il tuo spazio.</h2><div class="club-switch" role="tablist" aria-label="Centro Futura" aria-describedby="center-choice-hint"><button type="button" role="tab" id="tab-fabro" aria-controls="services-fabro" aria-selected="false" tabindex="-1" data-club="fabro">Fabro</button><button type="button" role="tab" id="tab-overview" aria-controls="services-overview" aria-selected="true" tabindex="0" data-club="overview"><span class="choice-arrow" aria-hidden="true">←</span><span class="choice-label">Scegli il tuo centro</span><span class="choice-arrow" aria-hidden="true">→</span></button><button type="button" role="tab" id="tab-pieve" aria-controls="services-pieve" aria-selected="false" tabindex="-1" data-club="pieve">Città della Pieve</button></div><p class="center-choice-hint" id="center-choice-hint" aria-live="polite">Scegli Fabro o Città della Pieve per vedere i servizi del centro.</p></div>
 <section class="section club-services" id="esperienze" aria-label="Attività dei centri">
 <div role="tabpanel" id="services-overview" aria-labelledby="tab-overview" tabindex="0">
   <ul class="category-links" aria-label="Categorie Futura">
