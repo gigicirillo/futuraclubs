@@ -397,7 +397,7 @@ new IntersectionObserver(([entry])=>{
 const pageSections=[...document.querySelectorAll('main > section')];
 const pageHeader=document.querySelector('header');
 const pageRoot=document.documentElement;
-let alignTimer=0, alignFrame=0, touchScrolling=false, pointerHeld=false, manualScroll=false;
+let alignTimer=0, alignFrame=0, touchScrolling=false, pointerHeld=false, manualScroll=false, gestureStart=window.scrollY, wheelDirection=0;
 
 function stopPageAlignment(){
   clearTimeout(alignTimer);
@@ -418,25 +418,32 @@ function alignToSection(){
   const headerHeight=pageHeader.offsetHeight;
   const viewportHeight=pageRoot.clientHeight;
   const pageEnd=pageRoot.scrollHeight-viewportHeight;
-  let target=pageEnd;
-  for(const section of pageSections){
+  const movement=start-gestureStart;
+  const direction=Math.sign(movement)||wheelDirection;
+  if(!direction)return;
+  const ranges=pageSections.map(section=>{
     const bounds=section.getBoundingClientRect();
     const top=Math.max(0,Math.min(pageEnd,start+bounds.top-headerHeight));
     const bottom=Math.max(top,Math.min(pageEnd,start+bounds.bottom-viewportHeight));
-    const candidate=Math.max(top,Math.min(bottom,start));
-    if(Math.abs(candidate-start)<Math.abs(target-start))target=candidate;
-  }
+    return {top,bottom};
+  });
+  // Keep native scrolling within tall sections and settle in the gesture’s direction between them.
+  const active=ranges.find(({top,bottom})=>start>=top&&start<=bottom);
+  if(active&&movement!==0)return;
+  const target=direction>0
+    ? (ranges.find(({top})=>top>start)?.top ?? pageEnd)
+    : ([...ranges].reverse().find(({bottom})=>bottom<start)?.bottom ?? 0);
   const distance=target-start;
-  if(Math.abs(distance)<2)return;
+  if(distance===0)return;
   if(newsMotion.matches){
     window.scrollTo({top:target,behavior:'instant'});
     return;
   }
-  const duration=Math.min(550,Math.max(340,Math.abs(distance)*1.15));
+  const duration=Math.min(1100,Math.max(680,570+Math.abs(distance)*.55));
   const begin=performance.now();
   function step(now){
     const progress=Math.min(1,(now-begin)/duration);
-    const eased=1-Math.pow(1-progress,3);
+    const eased=1-Math.pow(1-progress,4);
     window.scrollTo({top:start+distance*eased,behavior:'instant'});
     alignFrame=progress<1?requestAnimationFrame(step):0;
   }
@@ -444,16 +451,24 @@ function alignToSection(){
 }
 
 function startManualScroll(){
+  if(!manualScroll){
+    gestureStart=window.scrollY;
+    wheelDirection=0;
+  }
   stopPageAlignment();
   manualScroll=true;
 }
 window.addEventListener('wheel',event=>{
   if(!event.ctrlKey&&Math.abs(event.deltaY)>Math.abs(event.deltaX)){
+    const direction=Math.sign(event.deltaY);
+    if(wheelDirection&&wheelDirection!==direction)manualScroll=false;
     startManualScroll();
+    wheelDirection=direction;
     queuePageAlignment();
   }
 },{passive:true});
 window.addEventListener('touchstart',()=>{
+  manualScroll=false;
   touchScrolling=true;
   startManualScroll();
 },{passive:true});
