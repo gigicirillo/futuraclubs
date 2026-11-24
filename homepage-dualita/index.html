@@ -215,31 +215,47 @@ body > footer{
 .health-intro h2{font-size:clamp(38px,5.5vw,80px);line-height:.99;letter-spacing:-.055em;margin:0 0 25px}
 .health-intro h2 em{color:#ffc184;font-style:normal}
 .health-intro-copy p:not(.eyebrow){max-width:52ch;font-size:clamp(15px,1.25vw,18px);line-height:1.55;margin:0 0 15px}
-.health-hero-image{display:block;width:100%;height:100%;min-height:0;object-fit:cover;object-position:62% center}
-.health-cta{display:inline-flex;align-items:center;gap:18px;min-height:44px;margin-top:9px;padding:10px 19px;border-radius:40px;background:#ffc184;color:#22271f;font-size:14px;font-weight:700}
-.health-cta:hover{text-decoration:underline;text-underline-offset:3px}
-.health-profiles{padding:clamp(30px,5vw,66px) 4.5%}
-.health-slider-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 20px}
-.health-slider-heading h3{font-family:Manrope,sans-serif;font-size:clamp(27px,3.2vw,48px);line-height:1.05;letter-spacing:-.045em;margin:0 0 8px}
-.health-slider-heading p{font-size:14px;line-height:1.45;margin:0;color:#495e53}
-.health-controls{display:flex;flex:none;gap:8px}
-.health-controls button{width:44px;height:44px;border:1px solid #9eaea4;border-radius:100%;background:#f9f8ef;color:#20382f;font-size:20px}
+.health-intro{min-height:inherit}
+.health-visual{position:relative;display:grid;align-items:end;justify-items:end;min-width:0;min-height:410px;padding:clamp(14px,2vw,32px);isolation:isolate}
+.health-hero-image{position:absolute;inset:0;z-index:-1;display:block;width:100%;height:100%;object-fit:cover;object-position:62% center}
+.health-profiles{
+  width:min(100%,570px);
+  min-width:0;
+  padding:14px;
+  border:1px solid #ffffffa8;
+  border-radius:24px;
+  background:linear-gradient(145deg,#fafaf2ed,#e4eee2bc);
+  color:#182820;
+  box-shadow:inset 0 1px 1px #ffffffb8,0 12px 32px #17261e45;
+  -webkit-backdrop-filter:blur(16px) saturate(135%);
+  backdrop-filter:blur(16px) saturate(135%);
+}
+.health-slider-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.health-slider-heading h3{font-family:Manrope,sans-serif;font-size:clamp(19px,2vw,27px);line-height:1.1;letter-spacing:-.035em;margin:0 0 4px}
+.health-slider-heading p{font-size:12px;line-height:1.35;margin:0;color:#34483d}
+.health-controls{display:flex;flex:none;gap:5px}
+.health-controls button{width:44px;height:44px;border:1px solid #9eaea4;border-radius:50%;background:#ffffff9c;color:#20382f;font-size:19px}
 .health-controls button:disabled{opacity:.4;cursor:default}
-.health-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 36px) / 3);gap:18px;margin:0;padding:0 0 14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#758d7d transparent;list-style:none}
-.health-track:focus-visible{outline:2px solid #167b78;outline-offset:4px}
-.health-profile{min-width:0;overflow:hidden;border-radius:22px;background:#f9f8ef;scroll-snap-align:start}
-.health-profile img{display:block;width:100%;aspect-ratio:1.6;object-fit:cover;object-position:center 47%;background:#dce3d9}
-.health-profile-copy{padding:18px 20px 22px}
-.health-profile h4{font-family:Manrope,sans-serif;font-size:clamp(18px,1.75vw,24px);line-height:1.2;margin:0 0 8px}
-.health-profile p{font-size:14px;line-height:1.5;margin:0;color:#495e53}
-@media(max-width:940px){.health-track{grid-auto-columns:calc((100% - 18px) / 2)}}
-@media(max-width:600px){
+.health-track{display:grid;grid-auto-flow:column;grid-auto-columns:47%;gap:9px;margin:0;padding:2px 0 6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#758d7d transparent;list-style:none}
+.health-track:focus-visible{outline:2px solid #167b78;outline-offset:3px}
+.health-profile{
+  display:grid;grid-template-rows:1fr auto;min-width:0;overflow:hidden;scroll-snap-align:start;
+  border:1px solid #ffffffc9;border-radius:15px;
+  background:linear-gradient(155deg,#ffffffd9,#f0f5eb9c);
+  box-shadow:inset 0 1px 1px #fff,0 3px 8px #263d2e1c;
+}
+.health-profile-copy{padding:9px 10px}
+.health-profile h4{font-family:Manrope,sans-serif;font-size:14px;line-height:1.17;margin:0 0 4px}
+.health-profile p{font-size:12px;line-height:1.35;margin:0;color:#34483d}
+.health-profile img{display:block;width:100%;height:clamp(65px,11vh,105px);object-fit:cover;object-position:center 42%;background:#dce3d9}
+@media(max-width:900px){.health-track{grid-auto-columns:79%}}
+@media(max-width:700px){
   .health-intro{grid-template-columns:1fr}
-  .health-intro-copy,.health-profiles{padding:30px 6%}
-  .health-hero-image{height:auto;aspect-ratio:1.8;object-position:center 42%}
-  .health-slider-heading{align-items:start}
-  .health-track{grid-auto-columns:min(84%,350px);gap:12px}
-  .health-profile-copy{padding:16px}
+  .health-intro-copy{padding:30px 6%}
+  .health-visual{min-height:420px;padding:145px 12px 12px}
+  .health-hero-image{object-position:center 25%}
+  .health-profiles{padding:10px;border-radius:19px}
+  .health-track{grid-auto-columns:84%}
 }
 </style></head>
 <body>
@@ -271,45 +287,47 @@ body > footer{
       <p><strong>Con la pratica regolare,</strong> il movimento adattato può aiutarti a mantenere forza, mobilità ed equilibrio. L’obiettivo è continuare a fare con più sicurezza e autonomia le cose che contano per te.</p>
       <a class="health-cta" href="https://gigicirillo.github.io/Rijenera/#contatti">Parla con Rijenera <span aria-hidden="true">↗</span></a>
     </div>
-    <img class="health-hero-image" src="assets/rijenera-intro.webp" alt="Una donna si allena con un piccolo manubrio, affiancata da una professionista." loading="lazy" decoding="async">
-  </div>
-  <div class="health-profiles">
-    <div class="health-slider-heading">
-      <div>
-        <h3 id="health-profiles-title">A chi si rivolge</h3>
-        <p>Il percorso parte da una valutazione individuale e tiene conto delle eventuali indicazioni cliniche.</p>
-      </div>
-      <div class="health-controls" hidden>
-        <button type="button" data-health-step="-1" aria-controls="health-track" aria-label="Profili precedenti">←</button>
-        <button type="button" data-health-step="1" aria-controls="health-track" aria-label="Profili successivi">→</button>
+    <div class="health-visual">
+      <img class="health-hero-image" src="assets/rijenera-intro.webp" alt="Una donna si allena con un piccolo manubrio, affiancata da una professionista." loading="lazy" decoding="async">
+      <div class="health-profiles">
+        <div class="health-slider-heading">
+          <div>
+            <h3 id="health-profiles-title">A chi si rivolge</h3>
+            <p>Il percorso parte da una valutazione individuale e tiene conto delle eventuali indicazioni cliniche.</p>
+          </div>
+          <div class="health-controls" hidden>
+            <button type="button" data-health-step="-1" aria-controls="health-track" aria-label="Profili precedenti">←</button>
+            <button type="button" data-health-step="1" aria-controls="health-track" aria-label="Profili successivi">→</button>
+          </div>
+        </div>
+        <ul class="health-track" id="health-track" aria-labelledby="health-profiles-title" tabindex="0">
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Dolore e rigidità articolare</h4><p>Esercizi graduali per lavorare sulla mobilità e ritrovare fiducia nei gesti di ogni giorno.</p></div>
+            <img src="assets/rijenera-muscoli-articolazioni.webp" alt="Una donna esegue un esercizio con un elastico insieme a un’istruttrice." loading="lazy" decoding="async">
+          </li>
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Condizioni cardiovascolari o metaboliche stabilizzate</h4><p>Un percorso dosato sulle proprie capacità per allenare la resistenza e rendere l’attività fisica un’abitudine.</p></div>
+            <img src="assets/rijenera-cardiometabolico.webp" alt="Un uomo pedala su una cyclette reclinata con la supervisione di un istruttore." loading="lazy" decoding="async">
+          </li>
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Bisogni neurologici</h4><p>Lavoro adattato su equilibrio, coordinazione e sicurezza negli spostamenti, secondo le capacità individuali.</p></div>
+            <img src="assets/rijenera-neurologico.webp" alt="Un uomo prova un passo controllato accanto a un professionista del movimento." loading="lazy" decoding="async">
+          </li>
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Fragilità e mobilità ridotta</h4><p>Esercizi per mantenere forza ed equilibrio nelle attività di tutti i giorni, come alzarsi da una sedia e camminare.</p></div>
+            <img src="assets/rijenera-equilibrio.webp" alt="Una donna si esercita in piedi accanto a una barra di supporto." loading="lazy" decoding="async">
+          </li>
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Dopo un trauma o un intervento</h4><p>Quando appropriato, un ritorno graduale al movimento, anche in acqua, per lavorare su mobilità e controllo.</p></div>
+            <img src="assets/rijenera-recupero.webp" alt="Una persona svolge un esercizio in piscina con l’assistenza di un istruttore." loading="lazy" decoding="async">
+          </li>
+          <li class="health-profile">
+            <div class="health-profile-copy"><h4>Disabilità e limitazioni funzionali</h4><p>Attività costruite sulle capacità della persona, con obiettivi di autonomia e partecipazione alla vita quotidiana.</p></div>
+            <img src="assets/rijenera-disabilita.webp" alt="Una donna in sedia a rotelle esegue un esercizio con un elastico insieme a un istruttore." loading="lazy" decoding="async">
+          </li>
+        </ul>
       </div>
     </div>
-    <ul class="health-track" id="health-track" aria-labelledby="health-profiles-title" tabindex="0">
-      <li class="health-profile">
-        <img src="assets/rijenera-muscoli-articolazioni.webp" alt="Una donna esegue un esercizio con un elastico insieme a un’istruttrice." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Dolore e rigidità articolare</h4><p>Esercizi graduali per lavorare sulla mobilità e ritrovare fiducia nei gesti di ogni giorno.</p></div>
-      </li>
-      <li class="health-profile">
-        <img src="assets/rijenera-cardiometabolico.webp" alt="Un uomo pedala su una cyclette reclinata con la supervisione di un istruttore." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Condizioni cardiovascolari o metaboliche stabilizzate</h4><p>Un percorso dosato sulle proprie capacità per allenare la resistenza e rendere l’attività fisica un’abitudine.</p></div>
-      </li>
-      <li class="health-profile">
-        <img src="assets/rijenera-neurologico.webp" alt="Un uomo prova un passo controllato accanto a un professionista del movimento." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Bisogni neurologici</h4><p>Lavoro adattato su equilibrio, coordinazione e sicurezza negli spostamenti, secondo le capacità individuali.</p></div>
-      </li>
-      <li class="health-profile">
-        <img src="assets/rijenera-equilibrio.webp" alt="Una donna si esercita in piedi accanto a una barra di supporto." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Fragilità e mobilità ridotta</h4><p>Esercizi per mantenere forza ed equilibrio nelle attività di tutti i giorni, come alzarsi da una sedia e camminare.</p></div>
-      </li>
-      <li class="health-profile">
-        <img src="assets/rijenera-recupero.webp" alt="Una persona svolge un esercizio in piscina con l’assistenza di un istruttore." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Dopo un trauma o un intervento</h4><p>Quando appropriato, un ritorno graduale al movimento, anche in acqua, per lavorare su mobilità e controllo.</p></div>
-      </li>
-      <li class="health-profile">
-        <img src="assets/rijenera-disabilita.webp" alt="Una donna in sedia a rotelle esegue un esercizio con un elastico insieme a un istruttore." loading="lazy" decoding="async">
-        <div class="health-profile-copy"><h4>Disabilità e limitazioni funzionali</h4><p>Attività costruite sulle capacità della persona, con obiettivi di autonomia e partecipazione alla vita quotidiana.</p></div>
-      </li>
-    </ul>
   </div>
 </section>
 <section class="section method" id="metodo"><div><p class="eyebrow">Il metodo Futura</p><h2>Tu ci dai l'obiettivo.<br>Insieme, troviamo<br>il percorso.</h2></div><div><p>Ogni persona parte da un punto diverso. Raccontaci cosa cerchi: più energia, un nuovo equilibrio o semplicemente uno spazio da dedicare a te.</p><div class="steps"><div class="step"><small>01</small> Partiamo dall'ascolto</div><div class="step"><small>02</small> Scegliamo la tua direzione</div><div class="step"><small>03</small> Ci muoviamo insieme</div></div></div></section>
