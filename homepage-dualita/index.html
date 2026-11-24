@@ -389,9 +389,9 @@ body > footer{
   --glass-mark:url('assets/futuraclubs-pittogramma.svg');
   position:absolute;
   bottom:0;
-  left:clamp(8px,1.5vw,28px);
+  left:var(--hero-mark-left,clamp(8px,1.5vw,28px));
   z-index:1;
-  width:clamp(330px,min(39vw,74svh),680px);
+  width:var(--hero-mark-width,clamp(330px,min(39vw,74svh),680px));
   aspect-ratio:499/502;
   pointer-events:none;
   transform:translateY(34%);
@@ -419,7 +419,7 @@ body > footer{
   backdrop-filter:blur(6px) saturate(110%);
 }
 @media(max-width:600px){
-  .hero-brand-glass{left:8px;width:clamp(220px,66vw,340px)}
+  .hero-brand-glass{left:var(--hero-mark-left,8px);width:var(--hero-mark-width,clamp(220px,66vw,340px))}
 }
 </style></head>
 <body>
@@ -508,6 +508,32 @@ body > footer{
 <section class="section" id="club"><p class="eyebrow">Ci vediamo da Futura</p><h2>Il primo passo?<br>Vieni a conoscerci.</h2><div class="locations"><article class="location" id="fabro"><p class="eyebrow">Fabro</p><h3>Futura Fitness</h3><p>Via Monte Bianco 4/w, località Colonetta<br>Fabro</p><a href="tel:+390763831465">Chiama 0763 831465 ↗</a></article><article class="location" id="pieve"><p class="eyebrow">Città della Pieve</p><h3>Futura Evolution</h3><p>Vocabolo Cardete snc<br>Città della Pieve</p><a href="tel:+390578223059">Chiama 0578 223059 ↗</a><a href="https://www.futuraclubs.it/" target="_blank" rel="noopener">Visita il sito Futura ↗</a></article></div></section></main>
 <footer><span>Futura Clubs — Energia ed equilibrio.</span><span>Concept interattivo · Foto delle strutture rielaborate con AI · Persone generate</span></footer>
 <script>
+const heroScene=document.querySelector('.hero .scene');
+const heroMark=document.querySelector('.hero-brand-glass');
+function alignHeroMark(){
+  const {clientWidth:width,clientHeight:height}=heroScene;
+  const background=getComputedStyle(heroScene);
+  const imageWidth=1672,imageHeight=941;
+  const imageScale=background.backgroundSize==='cover'
+    ? Math.max(width/imageWidth,height/imageHeight)
+    : height/imageHeight;
+  const horizontalPosition=parseFloat(background.backgroundPositionX)/100;
+  const imageLeft=(width-imageWidth*imageScale)*horizontalPosition;
+  // The head spans x=247–301 in the photo; the SVG's opening is centered at x=414.
+  const faceLeft=imageLeft+247*imageScale;
+  const faceRight=imageLeft+301*imageScale;
+  if(faceRight<=0||faceLeft>=width){
+    heroMark.style.removeProperty('--hero-mark-left');
+    heroMark.style.removeProperty('--hero-mark-width');
+    return;
+  }
+  const markWidth=620*imageScale;
+  const gapCenter=(414-164)/499;
+  heroMark.style.setProperty('--hero-mark-width',markWidth+'px');
+  heroMark.style.setProperty('--hero-mark-left',((faceLeft+faceRight)/2-markWidth*gapCenter)+'px');
+}
+alignHeroMark();
+new ResizeObserver(alignHeroMark).observe(heroScene);
 const clubTabs=[...document.querySelectorAll('[data-club]')];
 const centerHint=document.getElementById('center-choice-hint');
 const overviewHint=centerHint.textContent;
