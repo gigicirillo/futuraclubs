@@ -220,23 +220,12 @@ body > footer{
 .health-hero-image{position:absolute;inset:0;z-index:-1;display:block;width:100%;height:100%;object-fit:cover;object-position:62% center}
 .health-cta{display:inline-flex;align-items:center;gap:18px;min-height:44px;margin-top:9px;padding:10px 19px;border-radius:40px;background:#ffc184;color:#22271f;font-size:14px;font-weight:700}
 .health-cta:hover{text-decoration:underline;text-underline-offset:3px}
-.health-profiles{
-  width:min(100%,570px);
-  min-width:0;
-  padding:14px;
-  border:1px solid #ffffffa8;
-  border-radius:24px;
-  background:linear-gradient(145deg,#fafaf2ed,#e4eee2bc);
-  color:#182820;
-  box-shadow:inset 0 1px 1px #ffffffb8,0 12px 32px #17261e45;
-  -webkit-backdrop-filter:blur(16px) saturate(135%);
-  backdrop-filter:blur(16px) saturate(135%);
-}
-.health-slider-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.health-profiles{width:100%;min-width:0}
+.health-slider-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;color:#fff;text-shadow:0 1px 2px #14251e,0 1px 6px #14251e,0 0 12px #14251ebf}
 .health-slider-heading h3{font-family:Manrope,sans-serif;font-size:clamp(19px,2vw,27px);line-height:1.1;letter-spacing:-.035em;margin:0 0 4px}
-.health-slider-heading p{font-size:12px;line-height:1.35;margin:0;color:#34483d}
+.health-slider-heading p{font-size:12px;line-height:1.35;margin:0}
 .health-controls{display:flex;flex:none;gap:5px}
-.health-controls button{width:44px;height:44px;border:1px solid #9eaea4;border-radius:50%;background:#ffffff9c;color:#20382f;font-size:19px}
+.health-controls button{width:44px;height:44px;border:1px solid #9eaea4;border-radius:50%;background:#ffffffcf;color:#20382f;font-size:19px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .health-controls button:disabled{opacity:.4;cursor:default}
 .health-track{display:grid;grid-auto-flow:column;grid-auto-columns:47%;gap:9px;margin:0;padding:2px 0 6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#758d7d transparent;list-style:none}
 .health-track:focus-visible{outline:2px solid #167b78;outline-offset:3px}
@@ -245,18 +234,20 @@ body > footer{
   border:1px solid #ffffffc9;border-radius:15px;
   background:linear-gradient(155deg,#ffffffd9,#f0f5eb9c);
   box-shadow:inset 0 1px 1px #fff,0 3px 8px #263d2e1c;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
 }
 .health-profile-copy{padding:9px 10px}
 .health-profile h4{font-family:Manrope,sans-serif;font-size:14px;line-height:1.17;margin:0 0 4px}
 .health-profile p{font-size:12px;line-height:1.35;margin:0;color:#34483d}
 .health-profile img{display:block;width:100%;height:clamp(65px,11vh,105px);object-fit:cover;object-position:center 42%;background:#dce3d9}
+@media(min-width:1200px){.health-track{grid-auto-columns:32%}}
 @media(max-width:900px){.health-track{grid-auto-columns:79%}}
 @media(max-width:700px){
   .health-intro{grid-template-columns:1fr}
   .health-intro-copy{padding:30px 6%}
   .health-visual{min-height:420px;padding:145px 12px 12px}
   .health-hero-image{object-position:center 25%}
-  .health-profiles{padding:10px;border-radius:19px}
   .health-track{grid-auto-columns:84%}
 }
 </style></head>
