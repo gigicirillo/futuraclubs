@@ -192,6 +192,40 @@ html{scroll-padding-top:var(--header-height)}
   .club-switch #tab-overview{gap:3px;flex-grow:1.35}
   .choice-arrow{font-size:11px}
 }
+
+.health-feature{background:#efeee5;color:#182820}
+.health-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:#20382f;color:#fffbf3}
+.health-intro-copy{align-self:center;padding:clamp(32px,5.5vw,86px) 10%}
+.health-intro-copy .eyebrow{color:#ffc184;margin-bottom:18px}
+.health-intro h2{font-size:clamp(38px,5.5vw,80px);line-height:.99;letter-spacing:-.055em;margin:0 0 25px}
+.health-intro h2 em{color:#ffc184;font-style:normal}
+.health-intro-copy p:not(.eyebrow){max-width:52ch;font-size:clamp(15px,1.25vw,18px);line-height:1.55;margin:0 0 15px}
+.health-hero-image{display:block;width:100%;height:100%;min-height:0;object-fit:cover;object-position:62% center}
+.health-cta{display:inline-flex;align-items:center;gap:18px;min-height:44px;margin-top:9px;padding:10px 19px;border-radius:40px;background:#ffc184;color:#22271f;font-size:14px;font-weight:700}
+.health-cta:hover{text-decoration:underline;text-underline-offset:3px}
+.health-profiles{padding:clamp(30px,5vw,66px) 4.5%}
+.health-slider-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 20px}
+.health-slider-heading h3{font-family:Manrope,sans-serif;font-size:clamp(27px,3.2vw,48px);line-height:1.05;letter-spacing:-.045em;margin:0 0 8px}
+.health-slider-heading p{font-size:14px;line-height:1.45;margin:0;color:#495e53}
+.health-controls{display:flex;flex:none;gap:8px}
+.health-controls button{width:44px;height:44px;border:1px solid #9eaea4;border-radius:100%;background:#f9f8ef;color:#20382f;font-size:20px}
+.health-controls button:disabled{opacity:.4;cursor:default}
+.health-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 36px) / 3);gap:18px;margin:0;padding:0 0 14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#758d7d transparent;list-style:none}
+.health-track:focus-visible{outline:2px solid #167b78;outline-offset:4px}
+.health-profile{min-width:0;overflow:hidden;border-radius:22px;background:#f9f8ef;scroll-snap-align:start}
+.health-profile img{display:block;width:100%;aspect-ratio:1.6;object-fit:cover;object-position:center 47%;background:#dce3d9}
+.health-profile-copy{padding:18px 20px 22px}
+.health-profile h4{font-family:Manrope,sans-serif;font-size:clamp(18px,1.75vw,24px);line-height:1.2;margin:0 0 8px}
+.health-profile p{font-size:14px;line-height:1.5;margin:0;color:#495e53}
+@media(max-width:940px){.health-track{grid-auto-columns:calc((100% - 18px) / 2)}}
+@media(max-width:600px){
+  .health-intro{grid-template-columns:1fr}
+  .health-intro-copy,.health-profiles{padding:30px 6%}
+  .health-hero-image{height:auto;aspect-ratio:1.8;object-position:center 42%}
+  .health-slider-heading{align-items:start}
+  .health-track{grid-auto-columns:min(84%,350px);gap:12px}
+  .health-profile-copy{padding:16px}
+}
 </style></head>
 <body>
 <header><a class="brand" href="#" aria-label="Futura Clubs, homepage">futura<span>CLUBS</span></a><nav aria-label="Navigazione principale"><a href="#scegli-centro">Esperienze</a><a href="#club">I club</a><a href="#metodo">Il metodo</a></nav><a class="cta header-cta" href="#scegli-centro">Trova il tuo percorso <span>↗</span></a></header>
@@ -207,11 +241,61 @@ html{scroll-padding-top:var(--header-height)}
     <li><a href="https://www.futuraclubs.it/corsi-fitness-terra/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8m12-8v8M3 10v4m18-4v4M6 12h12"/></svg><span>Fitness terra</span></a></li>
     <li><a href="https://www.futuraclubs.it/corsi-fitness-acqua/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 14c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M2 19c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M8 9l4-5 4 3"/></svg><span>Fitness acqua</span></a></li>
     <li><a href="https://www.futuraclubs.it/reformer/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 20 3 16 3 11c5 0 8 2 9 9Zm0 0c6 0 9-4 9-9-5 0-8 2-9 9Zm-4.5-8C8 8 10 5.5 12 4c2 1.5 4 4 4.5 8"/></svg><span>Holistic</span></a></li>
-    <li><a href="https://www.futuraclubs.it/palestra-della-salute/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.7a4.4 4.4 0 0 0-6.2 0L12 8.3 9.4 5.7a4.4 4.4 0 0 0-6.2 6.2L12 21l8.8-9.1a4.4 4.4 0 0 0 0-6.2ZM9 13h6m-3-3v6"/></svg><span>Palestra della salute</span></a></li>
+    <li><a href="#palestra-della-salute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.7a4.4 4.4 0 0 0-6.2 0L12 8.3 9.4 5.7a4.4 4.4 0 0 0-6.2 6.2L12 21l8.8-9.1a4.4 4.4 0 0 0 0-6.2ZM9 13h6m-3-3v6"/></svg><span>Palestra della salute</span></a></li>
     <li><a href="https://www.futuraclubs.it/swim-academy/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V5a2 2 0 0 1 4 0m5 11V5a2 2 0 0 1 4 0M7 9h9m-9 4h9M2 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0l2 1"/></svg><span>Piscina</span></a></li>
   </ul>
 </div>
 <div role="tabpanel" id="services-fabro" aria-labelledby="tab-fabro" tabindex="0" hidden><div class="service-heading"><div><p class="eyebrow">IL TUO CENTRO / FABRO</p><h2>Futura Fitness</h2><p class="service-description">Movimento, forza e nuove energie.</p></div><a class="cta" href="tel:+390763831465">Parla con il centro <span>↗</span></a></div><div class="service-grid" id="service-track-0" tabindex="0" role="region" aria-label="Servizi del centro, scorri orizzontalmente"><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-terra/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Fitness</span><span>01</span></div><h3>Fitness a terra</h3><p>Corsi di gruppo per allenare forza, resistenza e coordinazione.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/reformer/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/6.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Pilates</span><span>02</span></div><h3>Pilates Reformer</h3><p>Movimento guidato sul Reformer, controllo e consapevolezza del corpo.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/altre-attivita-small-group/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Allenamento</span><span>03</span></div><h3>Small Group</h3><p>Allenamenti in piccoli gruppi con la guida degli istruttori.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/percorsi-benessere/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/1-3-e1757682800521.jpg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Benessere</span><span>04</span></div><h3>Percorsi benessere</h3><p>Un percorso di movimento costruito intorno ai tuoi obiettivi.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a></div><div class="service-slider-controls"><span>Scopri tutti i servizi <span aria-hidden="true">↔</span></span><div><button type="button" data-track="service-track-0" data-step="-1" aria-label="Servizi precedenti" aria-controls="service-track-0">←</button><button type="button" data-track="service-track-0" data-step="1" aria-label="Servizi successivi" aria-controls="service-track-0">→</button></div></div><div class="service-foot"><span>Servizi del centro. Contattaci per scegliere il percorso e verificare la disponibilità.</span><a href="#fabro">Indirizzo e contatti ↗</a></div></div><div role="tabpanel" id="services-pieve" aria-labelledby="tab-pieve" tabindex="0" hidden><div class="service-heading"><div><p class="eyebrow">IL TUO CENTRO / CITTÀ DELLA PIEVE</p><h2>Futura Evolution</h2><p class="service-description">Allenamento, acqua e benessere, insieme.</p></div><a class="cta" href="tel:+390578223059">Parla con il centro <span>↗</span></a></div><div class="service-grid" id="service-track-1" tabindex="0" role="region" aria-label="Servizi del centro, scorri orizzontalmente"><a class="service-card" href="https://www.futuraclubs.it/nuoto-adulti/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/IMG_3052-scaled.jpeg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Piscina</span><span>01</span></div><h3>Nuoto adulti</h3><p>Percorsi per imparare a nuotare e migliorare la tecnica.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/nuoto-bambini/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/WhatsApp-Image-2022-03-19-at-12.12.26-6.jpeg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Piscina</span><span>02</span></div><h3>Scuola nuoto bambini</h3><p>Acquaticità e apprendimento del nuoto per i più piccoli.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-acqua/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Acqua</span><span>03</span></div><h3>Fitness in acqua</h3><p>Corsi di movimento e allenamento in piscina.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-terra/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Fitness</span><span>04</span></div><h3>Fitness a terra</h3><p>Corsi di gruppo per allenare forza, resistenza e coordinazione.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/reformer/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/6.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Pilates</span><span>05</span></div><h3>Pilates Reformer</h3><p>Movimento guidato sul Reformer, controllo e consapevolezza del corpo.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/altre-attivita-small-group/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Allenamento</span><span>06</span></div><h3>Small Group</h3><p>Allenamenti in piccoli gruppi con la guida degli istruttori.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/percorsi-benessere/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/1-3-e1757682800521.jpg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Benessere</span><span>07</span></div><h3>Percorsi benessere</h3><p>Un percorso di movimento costruito intorno ai tuoi obiettivi.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a></div><div class="service-slider-controls"><span>Scopri tutti i servizi <span aria-hidden="true">↔</span></span><div><button type="button" data-track="service-track-1" data-step="-1" aria-label="Servizi precedenti" aria-controls="service-track-1">←</button><button type="button" data-track="service-track-1" data-step="1" aria-label="Servizi successivi" aria-controls="service-track-1">→</button></div></div><div class="service-foot"><span>Servizi del centro. Contattaci per scegliere il percorso e verificare la disponibilità.</span><a href="#pieve">Indirizzo e contatti ↗</a></div></div></section>
+</section>
+<section class="health-feature" id="palestra-della-salute" aria-labelledby="health-title">
+  <div class="health-intro">
+    <div class="health-intro-copy">
+      <p class="eyebrow">Rijenera · Palestra e piscina della salute</p>
+      <h2 id="health-title">Più autonomia.<br><em>Ogni giorno.</em></h2>
+      <p>Per chi convive con una patologia stabilizzata, ha difficoltà a muoversi o vuole riprendere l’attività dopo un periodo di inattività, un trauma o un intervento.</p>
+      <p><strong>Con la pratica regolare,</strong> il movimento adattato può aiutarti a mantenere forza, mobilità ed equilibrio. L’obiettivo è continuare a fare con più sicurezza e autonomia le cose che contano per te.</p>
+      <a class="health-cta" href="https://gigicirillo.github.io/Rijenera/#contatti">Parla con Rijenera <span aria-hidden="true">↗</span></a>
+    </div>
+    <img class="health-hero-image" src="assets/rijenera-intro.webp" alt="Una donna si allena con un piccolo manubrio, affiancata da una professionista." loading="lazy" decoding="async">
+  </div>
+  <div class="health-profiles">
+    <div class="health-slider-heading">
+      <div>
+        <h3 id="health-profiles-title">A chi si rivolge</h3>
+        <p>Il percorso parte da una valutazione individuale e tiene conto delle eventuali indicazioni cliniche.</p>
+      </div>
+      <div class="health-controls" hidden>
+        <button type="button" data-health-step="-1" aria-controls="health-track" aria-label="Profili precedenti">←</button>
+        <button type="button" data-health-step="1" aria-controls="health-track" aria-label="Profili successivi">→</button>
+      </div>
+    </div>
+    <ul class="health-track" id="health-track" aria-labelledby="health-profiles-title" tabindex="0">
+      <li class="health-profile">
+        <img src="assets/rijenera-muscoli-articolazioni.webp" alt="Una donna esegue un esercizio con un elastico insieme a un’istruttrice." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Dolore e rigidità articolare</h4><p>Esercizi graduali per lavorare sulla mobilità e ritrovare fiducia nei gesti di ogni giorno.</p></div>
+      </li>
+      <li class="health-profile">
+        <img src="assets/rijenera-cardiometabolico.webp" alt="Un uomo pedala su una cyclette reclinata con la supervisione di un istruttore." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Condizioni cardiovascolari o metaboliche stabilizzate</h4><p>Un percorso dosato sulle proprie capacità per allenare la resistenza e rendere l’attività fisica un’abitudine.</p></div>
+      </li>
+      <li class="health-profile">
+        <img src="assets/rijenera-neurologico.webp" alt="Un uomo prova un passo controllato accanto a un professionista del movimento." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Bisogni neurologici</h4><p>Lavoro adattato su equilibrio, coordinazione e sicurezza negli spostamenti, secondo le capacità individuali.</p></div>
+      </li>
+      <li class="health-profile">
+        <img src="assets/rijenera-equilibrio.webp" alt="Una donna si esercita in piedi accanto a una barra di supporto." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Fragilità e mobilità ridotta</h4><p>Esercizi per mantenere forza ed equilibrio nelle attività di tutti i giorni, come alzarsi da una sedia e camminare.</p></div>
+      </li>
+      <li class="health-profile">
+        <img src="assets/rijenera-recupero.webp" alt="Una persona svolge un esercizio in piscina con l’assistenza di un istruttore." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Dopo un trauma o un intervento</h4><p>Quando appropriato, un ritorno graduale al movimento, anche in acqua, per lavorare su mobilità e controllo.</p></div>
+      </li>
+      <li class="health-profile">
+        <img src="assets/rijenera-disabilita.webp" alt="Una donna in sedia a rotelle esegue un esercizio con un elastico insieme a un istruttore." loading="lazy" decoding="async">
+        <div class="health-profile-copy"><h4>Disabilità e limitazioni funzionali</h4><p>Attività costruite sulle capacità della persona, con obiettivi di autonomia e partecipazione alla vita quotidiana.</p></div>
+      </li>
+    </ul>
+  </div>
 </section>
 <section class="section method" id="metodo"><div><p class="eyebrow">Il metodo Futura</p><h2>Tu ci dai l'obiettivo.<br>Insieme, troviamo<br>il percorso.</h2></div><div><p>Ogni persona parte da un punto diverso. Raccontaci cosa cerchi: più energia, un nuovo equilibrio o semplicemente uno spazio da dedicare a te.</p><div class="steps"><div class="step"><small>01</small> Partiamo dall'ascolto</div><div class="step"><small>02</small> Scegliamo la tua direzione</div><div class="step"><small>03</small> Ci muoviamo insieme</div></div></div></section>
 <section class="section" id="club"><p class="eyebrow">Ci vediamo da Futura</p><h2>Il primo passo?<br>Vieni a conoscerci.</h2><div class="locations"><article class="location" id="fabro"><p class="eyebrow">Fabro</p><h3>Futura Fitness</h3><p>Via Monte Bianco 4/w, località Colonetta<br>Fabro</p><a href="tel:+390763831465">Chiama 0763 831465 ↗</a></article><article class="location" id="pieve"><p class="eyebrow">Città della Pieve</p><h3>Futura Evolution</h3><p>Vocabolo Cardete snc<br>Città della Pieve</p><a href="tel:+390578223059">Chiama 0578 223059 ↗</a><a href="https://www.futuraclubs.it/" target="_blank" rel="noopener">Visita il sito Futura ↗</a></article></div></section></main>
@@ -258,4 +342,24 @@ const serviceTracks=[...document.querySelectorAll('.service-grid')];
 function refreshServiceArrows(){serviceTracks.forEach(track=>{if(!track.clientWidth)return;document.querySelectorAll('[data-track="'+track.id+'"]').forEach(button=>{button.disabled=Number(button.dataset.step)<0?track.scrollLeft<=2:track.scrollLeft+track.clientWidth>=track.scrollWidth-2})})}
 document.querySelectorAll('[data-track]').forEach(button=>button.addEventListener('click',()=>{const track=document.getElementById(button.dataset.track);track.scrollBy({left:Number(button.dataset.step)*(track.querySelector('.service-card').getBoundingClientRect().width+16),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}));
 serviceTracks.forEach(track=>{track.addEventListener('scroll',refreshServiceArrows,{passive:true});new ResizeObserver(refreshServiceArrows).observe(track)});refreshServiceArrows();
+
+const healthTrack=document.getElementById('health-track');
+const healthControls=healthTrack.closest('.health-profiles').querySelector('.health-controls');
+const healthButtons=[...healthControls.querySelectorAll('button')];
+function refreshHealthArrows(){
+  const max=healthTrack.scrollWidth-healthTrack.clientWidth;
+  healthButtons[0].disabled=healthTrack.scrollLeft<=2;
+  healthButtons[1].disabled=healthTrack.scrollLeft>=max-2;
+}
+healthButtons.forEach(button=>button.addEventListener('click',()=>{
+  const distance=healthTrack.children[1].offsetLeft-healthTrack.children[0].offsetLeft;
+  healthTrack.scrollBy({
+    left:Number(button.dataset.healthStep)*distance,
+    behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'
+  });
+}));
+healthControls.hidden=false;
+healthTrack.addEventListener('scroll',refreshHealthArrows,{passive:true});
+new ResizeObserver(refreshHealthArrows).observe(healthTrack);
+refreshHealthArrows();
 </script></body></html>
