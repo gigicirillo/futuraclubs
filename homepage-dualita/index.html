@@ -400,6 +400,11 @@ body > footer{
   aspect-ratio:499/502;
   pointer-events:none;
   transform:translateY(34%);
+  animation:hero-glass-rise 850ms cubic-bezier(.22,.72,.28,1) 100ms backwards;
+}
+@keyframes hero-glass-rise{
+  from{transform:translateY(100%);opacity:0}
+  to{transform:translateY(34%);opacity:1}
 }
 .hero-brand-glass::before,.hero-brand-glass::after{
   content:"";
