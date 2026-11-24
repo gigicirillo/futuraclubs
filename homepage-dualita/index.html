@@ -160,12 +160,27 @@ body > footer{
   gap:var(--tile-gap);
   width:min(100%,1200px);
   margin:0 auto;
-  padding:4px 0 10px;
+  padding:24px 0 82px;
   list-style:none;
   color:#203b34;
   text-align:center;
 }
-.category-links li{flex:0 0 calc((100% - 4 * var(--tile-gap)) / 5);min-width:0}
+.category-links li{
+  position:relative;
+  flex:0 0 calc((100% - 4 * var(--tile-gap)) / 5);
+  min-width:0;
+  --tile-offset:-14px;
+  transform:translateY(var(--tile-offset));
+  animation:category-float 5.8s ease-in-out infinite alternate;
+}
+.category-links li:nth-child(2){--tile-offset:14px;animation-duration:6.5s;animation-delay:-2.9s}
+.category-links li:nth-child(3){--tile-offset:-20px;animation-duration:5.3s;animation-delay:-1.4s}
+.category-links li:nth-child(4){--tile-offset:19px;animation-duration:6.8s;animation-delay:-3.7s}
+.category-links li:nth-child(5){--tile-offset:-7px;animation-duration:6.1s;animation-delay:-.8s}
+@keyframes category-float{
+  from{transform:translateY(var(--tile-offset))}
+  to{transform:translateY(calc(var(--tile-offset) + 9px))}
+}
 .category-links a{
   display:flex;
   width:100%;
@@ -184,47 +199,108 @@ body > footer{
   font-size:clamp(12px,1.35vw,17px);
   font-weight:600;
   line-height:1.2;
-  transition:transform .2s ease,box-shadow .2s ease;
+  transition:background .2s ease,box-shadow .2s ease;
 }
 .category-links a span{max-width:15ch}
 .category-links svg{width:clamp(27px,4vw,56px);height:auto;flex:none}
-@media(hover:hover){
-  .category-links a:hover{transform:translateY(-3px);box-shadow:inset 0 1px 1px #fff,0 16px 27px -9px #203b3452}
+.center-screen{position:relative;isolation:isolate}
+.center-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:#152b24;
+  opacity:0;
+  transition:opacity .24s ease;
 }
-.category-links a:active{transform:translateY(1px)}
+.center-screen.has-category-preview::before{opacity:.43}
+.center-screen .club-switch{z-index:3}
+.has-category-preview .category-links li{animation-play-state:paused}
+.category-links li.is-previewed{z-index:4}
+.category-links li.is-previewed > a{
+  background:linear-gradient(145deg,#fff 8%,#f0f5eb 54%,#dbe8dd);
+  box-shadow:inset 0 1px 1px #fff,0 16px 27px -9px #14291e66;
+}
+.category-preview{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:50%;
+  width:min(14rem,calc(100vw - 2rem));
+  padding-top:10px;
+  transform:translateX(-50%);
+}
+.is-previewed .category-preview{display:block}
+.category-preview-copy{
+  position:relative;
+  padding:12px 14px;
+  border-radius:15px;
+  background:#244438;
+  box-shadow:0 6px 18px #16332640;
+  color:#fff;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.4;
+}
+.category-preview-copy::before{
+  content:"";
+  position:absolute;
+  top:-4px;
+  left:calc(50% - 4px);
+  width:8px;
+  height:8px;
+  background:inherit;
+  transform:rotate(45deg);
+}
 @media(max-width:760px){
-  .category-links{--tile-gap:clamp(10px,3.5vw,24px);width:min(100%,570px)}
-  .category-links li{flex-basis:calc((100% - 2 * var(--tile-gap)) / 3)}
+  .category-links{--tile-gap:clamp(10px,3.5vw,24px);width:min(100%,570px);padding:16px 0 22px}
+  .category-links li{
+    flex-basis:calc((100% - 2 * var(--tile-gap)) / 3);
+    transform:translateY(calc(var(--tile-offset) * .45));
+    animation-name:category-float-mobile;
+  }
   .category-links svg{width:clamp(27px,8vw,46px)}
+  .category-preview{width:min(13rem,58vw)}
+  .category-links li:first-child .category-preview{left:0;transform:none}
+  .category-links li:nth-child(3) .category-preview{left:auto;right:0;transform:none}
+  .category-links li:first-child .category-preview-copy::before{left:22%}
+  .category-links li:nth-child(3) .category-preview-copy::before{left:74%}
+  .category-links li:nth-child(n+4) .category-preview{top:auto;bottom:100%;padding:0 0 10px}
+  .category-links li:nth-child(n+4) .category-preview-copy::before{top:auto;bottom:-4px}
+}
+@keyframes category-float-mobile{
+  from{transform:translateY(calc(var(--tile-offset) * .45))}
+  to{transform:translateY(calc(var(--tile-offset) * .45 + 5px))}
 }
 .center-choice-hint{margin:0;color:#4a5b50;font-size:14px;line-height:1.45}
-.club-switch #tab-overview{gap:5px}
+.club-switch #tab-overview{position:relative;isolation:isolate;overflow:hidden;gap:5px}
 .choice-arrow{flex:none;font-size:12px;line-height:1}
 .club-switch:has(#tab-overview[aria-selected="true"]) > button[data-club]:not(#tab-overview){
   background:#ffffff85;
-  border-color:#81998a;
   color:#28483a;
   font-weight:700;
 }
-.club-strip.is-visible .club-switch:has(#tab-overview[aria-selected="true"]) > button[data-club]:not(#tab-overview){
-  animation:center-option-glow 2.4s ease-in-out 2;
+.club-switch:has(#tab-overview[aria-selected="true"]) > button[data-club]:not(#tab-overview):hover{
+  background:#fff;
+  border-color:transparent;
 }
-.club-strip.is-visible .club-switch:has(#tab-overview[aria-selected="true"]) > #tab-pieve{
-  animation-delay:1.2s;
+.club-switch #tab-overview[aria-selected="true"]{background:#29493d}
+.club-switch #tab-overview[aria-selected="true"]::before{
+  content:"";
+  position:absolute;
+  inset:0 -24%;
+  z-index:-1;
+  background:radial-gradient(ellipse at center,#4d7463 4%,#3b6152 35%,#29493d 70%);
 }
-.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-arrow{
-  animation:center-arrow-nudge 2.4s ease-in-out 2;
+.club-strip.is-visible #tab-overview[aria-selected="true"]::before{
+  animation:center-bubble 20s ease-in-out infinite;
 }
-#tab-overview .choice-arrow:first-child{--arrow-shift:-5px}
-#tab-overview .choice-arrow:last-child{--arrow-shift:5px}
-.club-strip.is-visible #tab-overview[aria-selected="true"] .choice-arrow:last-child{animation-delay:1.2s}
-@keyframes center-option-glow{
-  0%,50%,100%{background:#ffffff85;border-color:#81998a;box-shadow:none}
-  24%{background:#d5edd7;border-color:#578266;box-shadow:0 0 9px #4f8a6755}
-}
-@keyframes center-arrow-nudge{
-  0%,50%,100%{transform:translateX(0)}
-  24%{transform:translateX(var(--arrow-shift));color:#d3ffc7}
+@keyframes center-bubble{
+  0%,5%,45%,100%{transform:translateX(0)}
+  13%,26%{transform:translateX(24%)}
+  55%{transform:translateX(0)}
+  63%,76%{transform:translateX(-24%)}
 }
 @media(max-width:600px){
   .club-switch #tab-overview{gap:3px;flex-grow:1.35}
@@ -285,11 +361,11 @@ body > footer{
 <section class="section club-services" id="esperienze" aria-label="Attività dei centri">
 <div role="tabpanel" id="services-overview" aria-labelledby="tab-overview" tabindex="0">
   <ul class="category-links" aria-label="Categorie Futura">
-    <li><a href="https://www.futuraclubs.it/corsi-fitness-terra/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8m12-8v8M3 10v4m18-4v4M6 12h12"/></svg><span>Fitness terra</span></a></li>
-    <li><a href="https://www.futuraclubs.it/corsi-fitness-acqua/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 14c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M2 19c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M8 9l4-5 4 3"/></svg><span>Fitness acqua</span></a></li>
-    <li><a href="https://www.futuraclubs.it/reformer/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 20 3 16 3 11c5 0 8 2 9 9Zm0 0c6 0 9-4 9-9-5 0-8 2-9 9Zm-4.5-8C8 8 10 5.5 12 4c2 1.5 4 4 4.5 8"/></svg><span>Holistic</span></a></li>
-    <li><a href="#palestra-della-salute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.7a4.4 4.4 0 0 0-6.2 0L12 8.3 9.4 5.7a4.4 4.4 0 0 0-6.2 6.2L12 21l8.8-9.1a4.4 4.4 0 0 0 0-6.2ZM9 13h6m-3-3v6"/></svg><span>Palestra della salute</span></a></li>
-    <li><a href="https://www.futuraclubs.it/swim-academy/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V5a2 2 0 0 1 4 0m5 11V5a2 2 0 0 1 4 0M7 9h9m-9 4h9M2 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0l2 1"/></svg><span>Piscina</span></a></li>
+    <li><a href="https://www.futuraclubs.it/corsi-fitness-terra/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8m12-8v8M3 10v4m18-4v4M6 12h12"/></svg><span>Fitness terra</span><div class="category-preview" aria-hidden="true"><div class="category-preview-copy">Clicca per scoprire tutte le attività <strong>Fitness terra</strong> dei centri Futura.</div></div></a></li>
+    <li><a href="https://www.futuraclubs.it/corsi-fitness-acqua/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 14c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M2 19c2.5-3 5-3 7.5 0s5 3 7.5 0 4-3 5-2M8 9l4-5 4 3"/></svg><span>Fitness acqua</span><div class="category-preview" aria-hidden="true"><div class="category-preview-copy">Clicca per scoprire tutte le attività <strong>Fitness acqua</strong> dei centri Futura.</div></div></a></li>
+    <li><a href="https://www.futuraclubs.it/reformer/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 20 3 16 3 11c5 0 8 2 9 9Zm0 0c6 0 9-4 9-9-5 0-8 2-9 9Zm-4.5-8C8 8 10 5.5 12 4c2 1.5 4 4 4.5 8"/></svg><span>Holistic</span><div class="category-preview" aria-hidden="true"><div class="category-preview-copy">Clicca per scoprire tutte le attività <strong>Holistic</strong> dei centri Futura.</div></div></a></li>
+    <li><a href="#palestra-della-salute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.7a4.4 4.4 0 0 0-6.2 0L12 8.3 9.4 5.7a4.4 4.4 0 0 0-6.2 6.2L12 21l8.8-9.1a4.4 4.4 0 0 0 0-6.2ZM9 13h6m-3-3v6"/></svg><span>Palestra della salute</span><div class="category-preview" aria-hidden="true"><div class="category-preview-copy">Clicca per scoprire tutte le attività <strong>Palestra della salute</strong> dei centri Futura.</div></div></a></li>
+    <li><a href="https://www.futuraclubs.it/swim-academy/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V5a2 2 0 0 1 4 0m5 11V5a2 2 0 0 1 4 0M7 9h9m-9 4h9M2 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0l2 1"/></svg><span>Piscina</span><div class="category-preview" aria-hidden="true"><div class="category-preview-copy">Clicca per scoprire tutte le attività <strong>Piscina</strong> dei centri Futura.</div></div></a></li>
   </ul>
 </div>
 <div role="tabpanel" id="services-fabro" aria-labelledby="tab-fabro" tabindex="0" hidden><div class="service-heading"><div><p class="eyebrow">IL TUO CENTRO / FABRO</p><h2>Futura Fitness</h2><p class="service-description">Movimento, forza e nuove energie.</p></div><a class="cta" href="tel:+390763831465">Parla con il centro <span>↗</span></a></div><div class="service-grid" id="service-track-0" tabindex="0" role="region" aria-label="Servizi del centro, scorri orizzontalmente"><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-terra/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Fitness</span><span>01</span></div><h3>Fitness a terra</h3><p>Corsi di gruppo per allenare forza, resistenza e coordinazione.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/reformer/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/6.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Pilates</span><span>02</span></div><h3>Pilates Reformer</h3><p>Movimento guidato sul Reformer, controllo e consapevolezza del corpo.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/altre-attivita-small-group/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Allenamento</span><span>03</span></div><h3>Small Group</h3><p>Allenamenti in piccoli gruppi con la guida degli istruttori.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/percorsi-benessere/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/1-3-e1757682800521.jpg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Benessere</span><span>04</span></div><h3>Percorsi benessere</h3><p>Un percorso di movimento costruito intorno ai tuoi obiettivi.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a></div><div class="service-slider-controls"><span>Scopri tutti i servizi <span aria-hidden="true">↔</span></span><div><button type="button" data-track="service-track-0" data-step="-1" aria-label="Servizi precedenti" aria-controls="service-track-0">←</button><button type="button" data-track="service-track-0" data-step="1" aria-label="Servizi successivi" aria-controls="service-track-0">→</button></div></div><div class="service-foot"><span>Servizi del centro. Contattaci per scegliere il percorso e verificare la disponibilità.</span><a href="#fabro">Indirizzo e contatti ↗</a></div></div><div role="tabpanel" id="services-pieve" aria-labelledby="tab-pieve" tabindex="0" hidden><div class="service-heading"><div><p class="eyebrow">IL TUO CENTRO / CITTÀ DELLA PIEVE</p><h2>Futura Evolution</h2><p class="service-description">Allenamento, acqua e benessere, insieme.</p></div><a class="cta" href="tel:+390578223059">Parla con il centro <span>↗</span></a></div><div class="service-grid" id="service-track-1" tabindex="0" role="region" aria-label="Servizi del centro, scorri orizzontalmente"><a class="service-card" href="https://www.futuraclubs.it/nuoto-adulti/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/IMG_3052-scaled.jpeg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Piscina</span><span>01</span></div><h3>Nuoto adulti</h3><p>Percorsi per imparare a nuotare e migliorare la tecnica.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/nuoto-bambini/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/WhatsApp-Image-2022-03-19-at-12.12.26-6.jpeg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Piscina</span><span>02</span></div><h3>Scuola nuoto bambini</h3><p>Acquaticità e apprendimento del nuoto per i più piccoli.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-acqua/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Acqua</span><span>03</span></div><h3>Fitness in acqua</h3><p>Corsi di movimento e allenamento in piscina.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/corsi-fitness-terra/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Fitness</span><span>04</span></div><h3>Fitness a terra</h3><p>Corsi di gruppo per allenare forza, resistenza e coordinazione.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/reformer/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/6.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Pilates</span><span>05</span></div><h3>Pilates Reformer</h3><p>Movimento guidato sul Reformer, controllo e consapevolezza del corpo.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/altre-attivita-small-group/" target="_blank" rel="noopener"><img class="service-background" src="assets/energia-salute-equilibrio-v2.png" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Allenamento</span><span>06</span></div><h3>Small Group</h3><p>Allenamenti in piccoli gruppi con la guida degli istruttori.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a><a class="service-card" href="https://www.futuraclubs.it/percorsi-benessere/" target="_blank" rel="noopener"><img class="service-background" src="https://www.futuraclubs.it/wp-content/uploads/1-3-e1757682800521.jpg" alt="" loading="lazy" decoding="async"><div class="service-card-top"><span>Benessere</span><span>07</span></div><h3>Percorsi benessere</h3><p>Un percorso di movimento costruito intorno ai tuoi obiettivi.</p><span class="service-link">Scopri il servizio <span aria-hidden="true">↗</span></span></a></div><div class="service-slider-controls"><span>Scopri tutti i servizi <span aria-hidden="true">↔</span></span><div><button type="button" data-track="service-track-1" data-step="-1" aria-label="Servizi precedenti" aria-controls="service-track-1">←</button><button type="button" data-track="service-track-1" data-step="1" aria-label="Servizi successivi" aria-controls="service-track-1">→</button></div></div><div class="service-foot"><span>Servizi del centro. Contattaci per scegliere il percorso e verificare la disponibilità.</span><a href="#pieve">Indirizzo e contatti ↗</a></div></div></section>
@@ -354,6 +430,7 @@ const clubTabs=[...document.querySelectorAll('[data-club]')];
 const centerHint=document.getElementById('center-choice-hint');
 const overviewHint=centerHint.textContent;
 function selectClub(tab){
+  previewCategory(null);
   if(tab.getAttribute('aria-selected')==='true')return;
   clubTabs.forEach(button=>{
     const active=button===tab;
@@ -361,13 +438,53 @@ function selectClub(tab){
     button.tabIndex=active?0:-1;
     const panel=document.getElementById(button.getAttribute('aria-controls'));
     panel.hidden=!active;
-    panel.classList.toggle('switch-enter',active);
+    panel.classList.toggle('switch-enter',active&&button.dataset.club!=='overview');
   });
   centerHint.textContent=tab.dataset.club==='overview'
     ? overviewHint
     : 'Qui sotto trovi i servizi di '+tab.textContent.trim()+'.';
 }
 clubTabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectClub(tab));tab.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(index+1)%clubTabs.length;else if(event.key==='ArrowLeft')next=(index+clubTabs.length-1)%clubTabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=clubTabs.length-1;else return;event.preventDefault();clubTabs[next].focus();selectClub(clubTabs[next])})});
+
+const centerSection=document.getElementById('scegli-centro');
+const categoryLinks=[...document.querySelectorAll('.category-links a')];
+let activeCategory=null;
+function previewCategory(link){
+  activeCategory?.parentElement.classList.remove('is-previewed');
+  activeCategory=link;
+  activeCategory?.parentElement.classList.add('is-previewed');
+  centerSection.classList.toggle('has-category-preview',Boolean(activeCategory));
+}
+categoryLinks.forEach(link=>{
+  link.addEventListener('pointerenter',event=>{
+    if(event.pointerType==='mouse')previewCategory(link);
+  });
+  link.addEventListener('pointerleave',event=>{
+    if(event.pointerType==='mouse'&&activeCategory===link&&!link.matches(':focus-visible'))previewCategory(null);
+  });
+  link.addEventListener('focus',()=>{
+    if(link.matches(':focus-visible'))previewCategory(link);
+  });
+  link.addEventListener('blur',()=>{
+    if(activeCategory===link&&!link.matches(':hover'))previewCategory(null);
+  });
+  link.addEventListener('click',event=>{
+    const touch=event.pointerType==='touch'||event.pointerType==='pen'||
+      (event.detail>0&&matchMedia('(hover: none)').matches);
+    if(touch&&activeCategory!==link){
+      event.preventDefault();
+      previewCategory(link);
+      return;
+    }
+    previewCategory(null);
+  });
+});
+document.addEventListener('pointerdown',event=>{
+  if(activeCategory&&!activeCategory.contains(event.target))previewCategory(null);
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&activeCategory)previewCategory(null);
+});
 
 const newsBox=document.querySelector('.hero-news'),newsSlides=[...document.querySelectorAll('.news-slide')],newsDots=[...document.querySelectorAll('[data-news]')],newsPrev=document.getElementById('news-prev'),newsNext=document.getElementById('news-next'),newsPause=document.getElementById('news-pause');
 const newsMotion=matchMedia('(prefers-reduced-motion: reduce)'),NEWS_INTERVAL=6000;
