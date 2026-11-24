@@ -394,22 +394,35 @@ body > footer{
   --glass-mark:url('assets/futuraclubs-pittogramma.svg');
   position:absolute;
   top:14%;
-  left:52%;
+  left:50%;
   z-index:1;
   width:clamp(108px,12vw,210px);
   aspect-ratio:499/502;
   pointer-events:none;
-  background:linear-gradient(145deg,#ffffffc4 2%,#ffffff6b 37%,#ffffff26 72%,#ffffff85);
-  -webkit-backdrop-filter:blur(6px) saturate(115%);
-  backdrop-filter:blur(6px) saturate(115%);
+  transform:translateX(-50%);
+  animation:hero-glass-entrance 780ms cubic-bezier(.2,.75,.28,1) both;
+}
+.hero-brand-glass::before,.hero-brand-glass::after{
+  content:"";
+  position:absolute;
+  inset:0;
   -webkit-mask:var(--glass-mark) center/contain no-repeat;
   mask:var(--glass-mark) center/contain no-repeat;
-  transform:translateX(-50%) rotate(-4deg);
-  animation:hero-glass-drift 9s ease-in-out infinite alternate;
 }
-@keyframes hero-glass-drift{
-  from{transform:translate(-50%,0) rotate(-4deg)}
-  to{transform:translate(-48%,-11px) rotate(2deg)}
+.hero-brand-glass::before{
+  background:#38362b24;
+  transform:translate(1px,2px);
+  filter:blur(1px);
+}
+.hero-brand-glass::after{
+  background:linear-gradient(147deg,#ffffffe0 3%,#ffffff83 35%,#ffffff32 70%,#ffffff70);
+  -webkit-backdrop-filter:blur(6px) saturate(110%);
+  backdrop-filter:blur(6px) saturate(110%);
+}
+@keyframes hero-glass-entrance{
+  0%{transform:translate(-50%,8%) scale(13);opacity:0}
+  24%{opacity:.77}
+  100%{transform:translateX(-50%) scale(1);opacity:1}
 }
 @media(max-width:1000px){
   .hero-brand-glass{top:53%;left:26%;width:clamp(95px,15vw,140px)}
